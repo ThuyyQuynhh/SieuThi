@@ -41,16 +41,17 @@ namespace QuanAo
             datasp.DataSource = dataProvider.GetDataTable(querydata);
         }
 
-        //private void cbdanhmuc_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-            
-        //    // tìm kiếm các sản phẩm phù hợp với điều kiện
-        //    string query = "select * from SanPham where MaDM = '" + cbdanhmuc.SelectedValue.ToString() + "'";
-        //    DataTable data = dataProvider.GetDataTable(query);
-        //    // laod lại data lên bảng tìm kiếm
-        //    datasp.DataSource = data;
+        private void cbdanhmuc_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
-        //}
+            // tìm kiếm các sản phẩm phù hợp với điều kiện
+            string query = "select * from SanPham where MaDM = '" + cbdanhmuc.SelectedValue.ToString() + "'";
+            DataTable data = dataProvider.GetDataTable(query);
+            // laod lại data lên bảng tìm kiếm
+            datasp.DataSource = data;
 
+        }
+
+        
     }
 }
