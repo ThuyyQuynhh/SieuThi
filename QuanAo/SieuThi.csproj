@@ -85,6 +85,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShopQuanAoDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="TrangChu.cs" />
+    <Compile Include="TrangChu.Designer.cs">
+      <DependentUpon>TrangChu.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="dangNhap.resx">
       <DependentUpon>dangNhap.cs</DependentUpon>
     </EmbeddedResource>
@@ -99,6 +103,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TrangChu.resx">
+      <DependentUpon>TrangChu.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
