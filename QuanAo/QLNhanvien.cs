@@ -22,6 +22,36 @@ namespace QuanAo
 
             dtgvNhanVien.DataSource = dataProvider.GetDataTable(query);
         }
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
+
+        private void groupControl1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        //sự kiện khi click vào một cột thì cập nhật dữ liệu vào các ô trống
+        private void dtgvNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = 0;
+            foreach (DataGridViewRow row in dtgvNhanVien.SelectedRows)
+            {
+                txbMaNV.Text = row.Cells[0].Value.ToString();
+                txbTenNV.Text = row.Cells[1].Value.ToString();
+                cbGioitinh.Text = row.Cells[2].Value.ToString();
+                dtpNgaysinh.Text = row.Cells[3].Value.ToString();
+                txbSDT.Text = row.Cells[4].Value.ToString();
+                txtDiachi.Text = row.Cells[5].Value.ToString();
+                txbLuong.Text = row.Cells[6].Value.ToString();
+                cbQuyenhan.Text = row.Cells[7].Value.ToString();
+                i++;
+            }
+        }
     }
 }
