@@ -53,5 +53,16 @@ namespace QuanAo
                 i++;
             }
         }
+        //ktra mã nhân viên có trùng nhau không
+        bool KtrTontai()
+        {
+
+            string query1 = string.Format("select NV.MaNV from NhanVien NV where NV.MaNV = '{0}' and exists (select *from NhanVien NX where NV.MaNV = NX.MaNV )", txbMaNV.Text);
+            if (dataProvider.GetDataTable(query1).Rows.Count > 0)
+            {
+                return true;
+            }
+            else return false;
+        }
     }
 }
