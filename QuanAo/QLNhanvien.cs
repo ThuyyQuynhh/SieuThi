@@ -14,9 +14,13 @@ namespace QuanAo
 {
     public partial class QLNhanvien : DevExpress.XtraEditors.XtraUserControl
     {
+        dataProvider dataProvider = new dataProvider();
         public QLNhanvien()
         {
             InitializeComponent();
+            string query = "select *from NhanVien";
+
+            dtgvNhanVien.DataSource = dataProvider.GetDataTable(query);
         }
 
     }
