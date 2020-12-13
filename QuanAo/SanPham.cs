@@ -111,6 +111,66 @@ namespace QuanAo
 
         }
 
+        private void btcapnhat_Click(object sender, EventArgs e)
+        {
+            if(txTenSP.Text =="" || cbdanhmuc.Text =="" || txThuongHieu.Text==""||numDonGia.Value==0 || txLoiNhuan.Text ==""||NgayCapNhat.Text ==""||txDonvi.Text=="")
+            {
+                MessageBox.Show("Điền đủ thông tin trước khi cập nhật");
+            }
+            else
+            {
+                try
+                {
+                    byte[] b = imagetoarray(HinhSP.Image);
+                    SqlConnection conect = new SqlConnection(dataProvider.connectionSTR);
+                    conect.Open();
+                    string query = "update SanPham set Hinh = @Hinh ,TenSP=N'"+txTenSP.Text.ToString()+"', MaDM ='"+cbdanhmuc.SelectedValue.ToString()+"',ThuongHieu = '"+txThuongHieu.Text.ToString() + "',Donvi = '" + txDonvi.Text.ToString() + "', Gia= "+numDonGia.Value.ToString()+" ,LoiNhuan = "+txLoiNhuan.Text.ToString()+" ,NgayCapNhat = '"+NgayCapNhat.Text.ToString()+"',Mota =N'"+txMoTa.Text.ToString()+"' where MaSP= '" + txmaSP.Text + "'";
+                    SqlCommand cmd = new SqlCommand(query, conect);
+                    cmd.Parameters.Add("@Hinh", b);
+                    cmd.ExecuteNonQuery();
+                    conect.Close();
+                    datasp.DataSource = dataProvider.GetDataTable("select * from SanPham");
+
+                }
+                catch
+                {
+                    dataProvider.exc("update SanPham set Hinh= null, TenSP=N'" + txTenSP.Text.ToString() + "', MaDM ='" + cbdanhmuc.SelectedValue.ToString() + "',ThuongHieu = '" + txThuongHieu.Text.ToString() + "',Donvi = '" + txDonvi.Text.ToString() + "', Gia= " + numDonGia.Value.ToString() + " ,LoiNhuan = " + txLoiNhuan.Text.ToString() + " ,NgayCapNhat = '" + NgayCapNhat.Text.ToString() + "',Mota =N'" + txMoTa.Text.ToString() + "' where MaSP= '" + txmaSP.Text + "'");
+                    datasp.DataSource = dataProvider.GetDataTable("select * from SanPham");
+                }
+            }
+            
+
+
+        }
+        // chuyển image thành byte[]
+        byte[] imagetoarray(Image img)
+        {
+            MemoryStream m = new MemoryStream();
+            img.Save(m, System.Drawing.Imaging.ImageFormat.Png);
+            return m.ToArray();
+        }
+        // chuyển byte[] về image
+        Image byteToImage(byte[] b)
+        {
+            MemoryStream m = new MemoryStream(b);
+            return Image.FromStream(m);
+        }
+
       
+        // click button xóa ảnh
+        private void groupControl2_CustomButtonClick(object sender, DevExpress.XtraBars.Docking2010.BaseButtonEventArgs e)
+        {
+            HinhSP.Image = null;
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
