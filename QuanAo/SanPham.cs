@@ -41,17 +41,53 @@ namespace QuanAo
             datasp.DataSource = dataProvider.GetDataTable(querydata);
         }
 
-        private void cbdanhmuc_SelectedIndexChanged(object sender, EventArgs e)
+        //private void cbdanhmuc_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+            
+        //    // tìm kiếm các sản phẩm phù hợp với điều kiện
+        //    string query = "select * from SanPham where MaDM = '" + cbdanhmuc.SelectedValue.ToString() + "'";
+        //    DataTable data = dataProvider.GetDataTable(query);
+        //    // laod lại data lên bảng tìm kiếm
+        //    datasp.DataSource = data;
+
+        //}
+
+        private void bttimkiem_Click(object sender, EventArgs e)
         {
-
-            // tìm kiếm các sản phẩm phù hợp với điều kiện
-            string query = "select * from SanPham where MaDM = '" + cbdanhmuc.SelectedValue.ToString() + "'";
-            DataTable data = dataProvider.GetDataTable(query);
-            // laod lại data lên bảng tìm kiếm
-            datasp.DataSource = data;
-
+            string querytimkiem = "select * from SanPham where TenSP like N'%" + txTimKiem.Text.ToString() + "%'";
+            datasp.DataSource = dataProvider.GetDataTable(querytimkiem);
         }
 
-        
+       
+
+        private void datasp_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int i = datasp.CurrentRow.Index; 
+            btcapnhat.Enabled = true;
+            btxoa.Enabled = true;
+            txmaSP.Text = datasp.Rows[i].Cells[0].Value.ToString();
+            txTenSP.Text = datasp.Rows[i].Cells[1].Value.ToString();
+            txThuongHieu.Text = datasp.Rows[i].Cells[3].Value.ToString();
+            numDonGia.Value = Convert.ToInt32( datasp.Rows[i].Cells[9].Value);
+            txLoiNhuan.Text = datasp.Rows[i].Cells[8].Value.ToString();
+            NgayCapNhat.Text = datasp.Rows[i].Cells[4].Value.ToString();
+            txMoTa.Text = datasp.Rows[i].Cells[5].Value.ToString();
+            txDonvi.Text = datasp.Rows[i].Cells[6].Value.ToString();
+            try
+            {
+                byte[] b = (byte[])(datasp.Rows[i].Cells[10].Value);
+                HinhSP.Image = byteToImage(b);
+            }
+            catch
+            {
+                HinhSP.Image = null;
+            }
+
+
+            string query = "select TenDM from DanhMuc where MaDM = '" + datasp.Rows[i].Cells[2].Value.ToString() + "'";
+            DataTable data = dataProvider.GetDataTable(query);
+            cbdanhmuc.Text = data.Rows[0][0].ToString();
+        }
+
     }
 }
