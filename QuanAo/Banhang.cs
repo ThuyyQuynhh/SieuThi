@@ -100,6 +100,50 @@ namespace QuanAo
             }
             
         }
+        // click button tìm kiếm => tìm kiếm trong database các sản phẩm phù hợp
+        private void TimKiem_Click(object sender, EventArgs e)
+        {
+            string query = "select MaSP, TenSP , ThuongHieu,Donvi,Gia,Ton from SanPham where TenSP like N'%" + txTenSP.Text.ToString() + "%'";
+            DataTable data = dataProvider.GetDataTable(query);
+            dataTimKiem.DataSource = data;
+        }
+        //sự kiện click vào 1 hàng trong datagridview tìm kiếm
+        private void dataTimKiem_CellClick(object sender, DataGridViewCellEventArgs e)
+        {   
+            // lưu index của hàng hiện tại ra biến i;
+            int i;
+            i = dataTimKiem.CurrentRow.Index;
+            
+            
+            // cho phép nhận button thêm
+            Them.Enabled = true;
+            // không cho phép bấm button xóa
+            Xoa.Enabled = false;
+            
+
+            
+        }
        
+        int TongGia()
+        {
+            int tong = 0;
+            for(int  i = 0; i<dataSP.Rows.Count -1; i++)
+            {
+                tong += Convert.ToInt32(dataSP.Rows[i].Cells[4].Value) * Convert.ToInt32(dataSP.Rows[i].Cells[5].Value);
+            }
+            return tong;
+        }
+        // khi chọn 1 sản phẩm bên hóa đơn thì cho phép xóa và không cho phép thêm
+        private void dataSP_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+            Them.Enabled = false;
+            Xoa.Enabled = true;
+            
+
+        }
+        
+        // button thêm
+        
     }
 }
