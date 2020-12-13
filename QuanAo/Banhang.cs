@@ -144,6 +144,161 @@ namespace QuanAo
         }
         
         // button thêm
+        private void Them_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                // lấy các dữ liệu của sản phẩm được chọn bên trường tìm kiếm, và lưu vào datatable data 
+                int k;
+                k = dataTimKiem.CurrentRow.Index;
+                string masp = dataTimKiem.Rows[k].Cells[0].Value.ToString();
+                string query = "select MaSP, TenSP , ThuongHieu,Donvi,Gia,Ton from SanPham where MaSP = '" + masp + "'";
+                DataTable data = dataProvider.GetDataTable(query);
+                // kiểm tra số lượng muốn mua có đủ không, không đủ thì đưa ra thông báo
+                if (Convert.ToInt32(data.Rows[0][5]) < numSoLuong.Value)
+                {
+                    MessageBox.Show(" Số lượng không đủ ");
+                }
+                // nếu đủ sẽ thêm vào hóa đơn tạm
+                else
+                {
+                    // gán các cột trong bảng hiển thị chi tiết hóa đơn bằng sản phẩm mới đưuọc chọn
+                    string tensp = data.Rows[0][1].ToString();
+                    string thuonghieu = data.Rows[0][2].ToString();
+                    string donvi = data.Rows[0][3].ToString();
+                    string gia = data.Rows[0][4].ToString();
+                    // biến tìm chỉ số của sản phẩm nếu chọn mua sản phẩm đã bị trùng trong hóa đơn
+                    int index = 0;
+
+                    //chạy vòng for để ktra xem mã sp có trong bảng hay chưa
+                    for (int i = 0; i < dataSP.Rows.Count - 1; i++)
+                    {
+                        // nếu có sản phẩm trong hóa đơn thì kết thúc vòng for, trả về chỉ số của sản phẩm trong hóa đơn
+                        if (masp == dataSP.Rows[i].Cells[0].Value.ToString())
+                        {
+
+                            break;
+
+                        }
+                        index++;
+
+                    }
+
+
+                    // nếu chưa có trong bảng thanh toán thì add vào bảng
+                    if (index == dataSP.RowCount - 1 && numSoLuong.Value > 0)
+                    {
+                        // thêm vào bảng thanh toán
+                        dataSP.Rows.Add(masp, tensp, thuonghieu,donvi, gia, numSoLuong.Value);
+
+                    }
+                    // nếu đã có thì cộng thêm số lượng bên hóa đơn
+                    else if (index < dataSP.RowCount - 1 && numSoLuong.Value > 0)
+                    {
+
+                        dataSP.Rows[index].Cells[5].Value = (Convert.ToInt32(dataSP.Rows[index].Cells[5].Value) + numSoLuong.Value).ToString();
+                    }
+                    // update lại số lượng trong kho
+                    string queryupdate = "update SanPham set Ton = Ton -" + numSoLuong.Value.ToString() + "where MaSP = '" + dataTimKiem.Rows[k].Cells[0].Value.ToString() +"'" ;
+                    dataProvider.exc(queryupdate);
+                   // load sản phẩm lên datatimkiem trước khi tìm kiếm lần đầu tiên
+                    string query3 = "select MaSP, TenSP , ThuongHieu,Donvi,Gia ,Ton from SanPham";
+                    dataTimKiem.DataSource = dataProvider.GetDataTable(query3);
+
+                }
+                txTongGia.Text = TongGia().ToString();
+                TienPhaiTra.Text = (TongGia() * (float)((100 - numKhuyenMai.Value) / 100)).ToString();
+            }
+            catch
+            {
+
+            }
+            
+        }
+
+        
+        // button thanh toán
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            // nếu chưa có sản phẩm nào trong hóa đơn
+            if(dataSP.RowCount == 1 || CBNV.Text =="" || txNgayNhap.Text == "")
+            {
+                MessageBox.Show("Chưa có sản phẩm để thanh toán hoặc chưa đủ thông tin hóa đơn");
+            }
+            // có sp để thanh toán
+            else
+            {
+                // có thông tin khách hàng để thanh toán
+                if (txTenKhachHang.Text != "")
+                {
+                    DataTable data = dataProvider.GetDataTable("select * from KhachHang where SDT = '" + txSDT.Text.ToString() + "'");
+                    string queryHD = "insert into HoaDon values('" + txMaHD.Text.ToString() + "','" + CBNV.SelectedValue.ToString() + "','" + data.Rows[0][0].ToString() + "','" + Convert.ToDateTime(txNgayNhap.EditValue).ToString("yyyy-MM-dd") + "'," + TienPhaiTra.Text.ToString() + ","+numKhuyenMai.Value.ToString()+")";
+                    dataProvider.exc(queryHD);
+                    
+                    for (int i = 0; i < dataSP.RowCount -1; i++)
+                    {
+                        string queryCTHD = "insert into ChiTiet values('"+txMaHD.Text.ToString()+"','"+dataSP.Rows[i].Cells[0].Value.ToString()+"','"+dataSP.Rows[i].Cells[5].Value.ToString()+"')";
+                        dataProvider.exc(queryCTHD);
+                        string queryBan = "update SanPham set Ban = Ban +" + dataSP.Rows[i].Cells[5].Value.ToString() + " where MaSP = '" + dataSP.Rows[i].Cells[0].Value.ToString()+"'";
+                        dataProvider.exc(queryBan);
+
+                    }
+                    // in hóa đơn
+                    ReportHD report = new ReportHD();
+
+
+                    string query = "exec Report1 '" + txMaHD.Text.ToString() + "'";
+                    DataTable dataHD = dataProvider.GetDataTable(query);
+                    report.DataSource = dataHD;
+                    report.ShowPreviewDialog();
+                    // gán mã hóa đơn để thao tác sau
+                    mahd = "HD" + (dataProvider.GetDataTable("select * from HoaDon").Rows.Count + 1).ToString();
+                    txMaHD.Text = mahd;                 // gán mặc định mã hóa đơn cho text MaHd và không sửa được
+                    txSDT.Text = "";
+                    numSoLuong.Value = 0;
+                    numKhuyenMai.Value = 0;
+                    txNgayNhap.Text = "";
+                    dataSP.Rows.Clear();
+
+                    
+
+
+                }
+                else
+                {
+                    
+                    string queryHD = "insert into HoaDon values('" + txMaHD.Text.ToString() + "','" + CBNV.SelectedValue.ToString() + "','NV00','" + Convert.ToDateTime(txNgayNhap.EditValue).ToString("yyyy-MM-dd") + "'," + TienPhaiTra.Text.ToString() + ","+numKhuyenMai.Value.ToString()+")";
+                    dataProvider.exc(queryHD);
+
+                    for (int i = 0; i < dataSP.RowCount - 1; i++)
+                    {
+                        string queryCTHD = "insert into ChiTiet values('" + txMaHD.Text.ToString() + "','" + dataSP.Rows[i].Cells[0].Value.ToString() + "','" + dataSP.Rows[i].Cells[5].Value.ToString() + "')";
+                        dataProvider.exc(queryCTHD);
+                        string queryBan = "update SanPham set Ban = Ban +" + dataSP.Rows[i].Cells[5].Value.ToString() + " where MaSP = '" + dataSP.Rows[i].Cells[0].Value.ToString()+"'";
+                        dataProvider.exc(queryBan);
+
+                    }
+                    // in hóa đơn
+                    ReportHD report = new ReportHD();
+                    string query = "exec Report '" + txMaHD.Text.ToString() + "'";
+                    DataTable dataHD = dataProvider.GetDataTable(query);
+                    report.DataSource = dataHD;
+                    report.ShowPreviewDialog();
+                    // gán mã hóa đơn để thao tác sau
+                    mahd = "HD" + (dataProvider.GetDataTable("select * from HoaDon").Rows.Count + 1).ToString();
+                    txMaHD.Text = mahd;                 // gán mặc định mã hóa đơn cho text MaHd và không sửa được
+                    txSDT.Text = "";
+                    numSoLuong.Value = 0;
+                    numKhuyenMai.Value = 0;
+                    txNgayNhap.Text = "";
+                    dataSP.Rows.Clear();
+                    
+                }
+            }
+            
+            
+
+        }
         
     }
 }
