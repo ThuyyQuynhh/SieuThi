@@ -88,6 +88,29 @@ namespace QuanAo
             DataTable data = dataProvider.GetDataTable(query);
             cbdanhmuc.Text = data.Rows[0][0].ToString();
         }
+        // xóa sản phẩm
+        private void btxoa_Click(object sender, EventArgs e)
+        {
+            int i = datasp.CurrentRow.Index;
+            datasp.DataSource = dataProvider.GetDataTable("delete from SanPham where MaSP = '" + datasp.Rows[i].Cells[0].Value.ToString() + "' select * from SanPham");
+        }
 
+        private void dockPanel1_Click(object sender, EventArgs e)
+        {
+
+        }
+        // button chọn hình ảnh
+        private void dockPanel1_CustomButtonClick(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            if(open.ShowDialog() == DialogResult.OK)
+            {
+                HinhSP.Image = Image.FromFile(open.FileName);
+                
+            }
+
+        }
+
+      
     }
 }
