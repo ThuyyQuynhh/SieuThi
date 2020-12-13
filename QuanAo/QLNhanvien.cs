@@ -126,5 +126,24 @@ namespace QuanAo
             //}
 
         }
+        private void txtDisplayName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        public string MaNVcu;
+        private void txbMaNV_Click(object sender, EventArgs e)
+        {
+            MaNVcu = txbMaNV.Text;
+            DialogResult dlr = MessageBox.Show("Bạn có chắc chắn muốn đổi mã nhân viên?", "Chú ý", MessageBoxButtons.OKCancel);
+            if (dlr == DialogResult.Cancel)
+            {
+                txbMaNV.ReadOnly = true;
+            }
+        }
+        // public string Taikhoancu;
+        private void txtDisplayName_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
