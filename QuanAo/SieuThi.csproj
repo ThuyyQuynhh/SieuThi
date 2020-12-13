@@ -68,6 +68,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dangNhap.cs" />
+    <Compile Include="dangNhap.Designer.cs">
+      <DependentUpon>dangNhap.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\dataProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,10 +85,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShopQuanAoDataSet1.xsd</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="ThongkeLoinhuan.cs" />
     <Compile Include="ThongkeLoinhuan.Designer.cs">
       <DependentUpon>ThongkeLoinhuan.cs</DependentUpon>
     </Compile>
+=======
+    <EmbeddedResource Include="dangNhap.resx">
+      <DependentUpon>dangNhap.cs</DependentUpon>
+    </EmbeddedResource>
+>>>>>>> origin/TQ_DangNhap
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
