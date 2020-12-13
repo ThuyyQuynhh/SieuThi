@@ -86,11 +86,18 @@
       <DependentUpon>ShopQuanAoDataSet1.xsd</DependentUpon>
     </Compile>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <Compile Include="ThongkeLoinhuan.cs" />
     <Compile Include="ThongkeLoinhuan.Designer.cs">
       <DependentUpon>ThongkeLoinhuan.cs</DependentUpon>
     </Compile>
 =======
+=======
+    <Compile Include="TrangChu.cs" />
+    <Compile Include="TrangChu.Designer.cs">
+      <DependentUpon>TrangChu.cs</DependentUpon>
+    </Compile>
+>>>>>>> origin/TQ_TrangChu
     <EmbeddedResource Include="dangNhap.resx">
       <DependentUpon>dangNhap.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,8 +113,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+<<<<<<< HEAD
     <EmbeddedResource Include="ThongkeLoinhuan.resx">
       <DependentUpon>ThongkeLoinhuan.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="TrangChu.resx">
+      <DependentUpon>TrangChu.cs</DependentUpon>
+>>>>>>> origin/TQ_TrangChu
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
