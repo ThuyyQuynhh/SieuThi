@@ -64,5 +64,35 @@ namespace QuanAo
             }
             else return false;
         }
+        public int Add_change = 0;//tạo một biến để xem click vào thêm hay sửa, thêm = 0, sửa = 1
+        private void btnAdd_Click(object sender, EventArgs e)//thêm mới
+        {
+            //reset các ô cho phép nhập thông tin
+            txbMaNV.ReadOnly = false;
+            txbTenNV.ReadOnly = false;
+            txbSDT.ReadOnly = false;
+            txtDiachi.ReadOnly = false;
+            txbLuong.ReadOnly = false;
+
+
+        }
+
+        private void btnChange_Click(object sender, EventArgs e)
+        {
+            txbMaNV.ReadOnly = true;
+            //reset các ô cho phép sửa
+            txbTenNV.ReadOnly = false;
+            txbSDT.ReadOnly = false;
+            txtDiachi.ReadOnly = false;
+            txbLuong.ReadOnly = false;
+            Add_change = 1;
+
+        }
+
+        private void txbMaNV_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
