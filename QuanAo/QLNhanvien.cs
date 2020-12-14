@@ -93,6 +93,38 @@ namespace QuanAo
         {
 
         }
+        private void btUpdate_Click(object sender, EventArgs e)//sửa thành public để gọi biến Add_Change
+        {
+            //if (KtrTontai())
+            //{
+            //    MessageBox.Show("Nhân viên này đã tồn tại");
+            //}
+            //else
+            //{
+            if (Add_change == 0)
+            {
+                if (KtrTontai())
+                {
+                    MessageBox.Show("Mã nhân viên đã tồn tại");
+                }
+                else
+                {
 
+                    string query2 = string.Format(" insert into NhanVien values ('{0}',N'{1}',N'{2}','{3}','{4}',N'{5}','{6}',N'{7}') select *from NhanVien",
+                         txbMaNV.Text, txbTenNV.Text, cbGioitinh.Text, dtpNgaysinh.Value, txbSDT.Text, txtDiachi.Text, txbLuong.Text, cbQuyenhan.Text);
+                    dtgvNhanVien.DataSource = dataProvider.GetDataTable(query2);
+                }
+
+            }
+            else
+            {
+
+                string query = string.Format(" update NhanVien set TenNV = N'{0}', GioiTinh = N'{1}', NgaySinh = '{2}', SDT = '{3}', DiaChi = N'{4}', Luong = '{5}',  Chucvu = N'{6}' where MaNV = '{7}' select *from NhanVien",
+                      txbTenNV.Text, cbGioitinh.Text, dtpNgaysinh.Value, txbSDT.Text, txtDiachi.Text, txbLuong.Text, cbQuyenhan.Text, txbMaNV.Text);
+                dtgvNhanVien.DataSource = dataProvider.GetDataTable(query);
+            }
+            //}
+
+        }
     }
 }
