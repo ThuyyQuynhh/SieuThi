@@ -62,7 +62,34 @@ namespace QuanAo
             }
 
         }
-        
+        //sự kiện khi click vào nút tìm kiếm
+        private void btnTimkiem_Click(object sender, EventArgs e)
+        {
+            //load lên danh sách khách hàng có thông tin trùng với thông tin tìm kiếm
+            string query = string.Format("select *from KhachHang KH where KH.TenKH like N'%{0}%'", txtTentimkiem.Text);
+
+            dtgvListKH.DataSource = dataProvider.GetDataTable(query);
+
+
+
+        }
+
+        private void dataGridView7_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        //sự kiện khi click vào một cột trong hoá đơn khách hàng đã mua
+        private void dtgvDamua_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //hiện thi hoá đơn đó lên
+            ReportHD report = new ReportHD();
+
+            int i = dtgvDamua.CurrentRow.Index;
+            string query = "exec Report '" + dtgvDamua.Rows[i].Cells[2].Value.ToString() + "'";
+            DataTable data = dataProvider.GetDataTable(query);
+            report.DataSource = data;
+            report.ShowPreviewDialog();
+        }
 
 
 
