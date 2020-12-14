@@ -73,6 +73,10 @@
       <DependentUpon>dangNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\dataProvider.cs" />
+    <Compile Include="home.cs" />
+    <Compile Include="home.Designer.cs">
+      <DependentUpon>home.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShopQuanAoDataSet.Designer.cs">
@@ -101,7 +105,13 @@
     <EmbeddedResource Include="dangNhap.resx">
       <DependentUpon>dangNhap.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
 >>>>>>> origin/TQ_DangNhap
+=======
+    <EmbeddedResource Include="home.resx">
+      <DependentUpon>home.cs</DependentUpon>
+    </EmbeddedResource>
+>>>>>>> origin/TQ_Home
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
