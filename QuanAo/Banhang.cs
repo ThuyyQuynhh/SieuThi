@@ -299,6 +299,84 @@ namespace QuanAo
             
 
         }
-        
+        //button tìm kiếm khách hàng
+        private void simpleButton3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable data = dataProvider.GetDataTable("Select * from KhachHang where SDT = '" + txSDT.Text.ToString() + "'");
+                if (data.Rows.Count == 0)
+                {
+                    txTenKhachHang.Text = "";
+                    AddKhachHang AddKH = new AddKhachHang();
+                    AddKH.sdt = txSDT.Text.ToString();
+                    AddKH.ShowDialog();
+                    
+                }
+                else
+                {
+                    txTenKhachHang.Text = data.Rows[0][1].ToString();
+                }
+            }
+            catch
+            {
+
+            }
+           
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+        // button xóa sản phẩm ra khỏi bảng
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // lấy chỉ số hiện tại của hàng đang click
+                int i;
+                i = dataSP.CurrentRow.Index;
+                // update lại số lượng sp trong kho
+                string queryupdate = "update SanPham set Ton =Ton +" + dataSP.Rows[i].Cells[5].Value.ToString() + "where MaSP = '" + dataSP.Rows[i].Cells[0].Value + "' select MaSP, TenSP , ThuongHieu,Donvi,Gia ,Ton from SanPham";
+                dataTimKiem.DataSource = dataProvider.GetDataTable(queryupdate);
+                // xóa hàng vừa chọn khỏi bảng data
+                dataSP.Rows.Remove(dataSP.Rows[i]);
+            }
+            catch
+            {
+
+            }
+            txTongGia.Text = TongGia().ToString();
+            TienPhaiTra.Text = (TongGia() * (float)((100 - numKhuyenMai.Value) / 100)).ToString();
+        }
+
+       
+
+        private void numKhuyenMai_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //TienPhaiTra.Text = (TongGia() * (float)((100 - numKhuyenMai.Value) / 100)).ToString();
+        }
+
+        private void numKhuyenMai_ValueChanged(object sender, EventArgs e)
+        {
+            TienPhaiTra.Text = (TongGia() * (float)((100 - numKhuyenMai.Value) / 100)).ToString();
+
+        }
+
+        private void dataTimKiem_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void TimKiem_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
