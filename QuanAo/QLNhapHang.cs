@@ -57,5 +57,16 @@ namespace QuanAo
                 HinhAnhSP.Image = null;
             }
         }
+        // kiểm tra xem nhập đủ thông tin chưa mới cho phép nhập kho
+        bool ktra()
+        {
+            if (txbMaSP.Text == "" || txbMaSP.Text == "" || txbTenSP.Text == "" || txbDanhmuc.Text == "" || txbThuonghieu.Text == "" || txbMota.Text == "" || txbDonvi.Text == "" || txbGiaNhap.Text == "" || txbLoinhuan.Text == "")
+            {
+
+                return false;
+            }
+            return true;
+
+        }
     }
 }
