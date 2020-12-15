@@ -93,7 +93,7 @@ namespace QuanAo
             txbDoanhthu.Text = doanhthu.ToString();
         }
 
-        private void groupControl1_Paint(object sender, PaintEventArgs e)
+         private void groupControl1_Paint(object sender, PaintEventArgs e)
         {
 
         }
