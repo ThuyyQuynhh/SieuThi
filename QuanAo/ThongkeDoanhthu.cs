@@ -20,7 +20,39 @@ namespace QuanAo
         }
         dataProvider dataProvider = new dataProvider();
         public int chon = 0;
+        private void label1_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void raBtn_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void raBtn_Click(object sender, EventArgs e)//chon ngay
+        {
+            dtpChonngay.Enabled = true;
+            chon = 0;
+        }
+
+        private void radioButton2_Click(object sender, EventArgs e)//chon thang
+        {
+            cmbChonthang.Enabled = true;
+            cmbChonnam.Enabled = true;
+            chon = 1;
+        }
+
+        private void radioButton3_Click(object sender, EventArgs e)//chon nam
+        {
+            cmbChonnam.Enabled = true;
+            chon = 2;
+        }
 
         private void btnThongKe_Click(object sender, EventArgs e)
         {
@@ -61,5 +93,9 @@ namespace QuanAo
             txbDoanhthu.Text = doanhthu.ToString();
         }
 
+        private void groupControl1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
