@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
     <Compile Include="QLNhanvien.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -122,6 +123,9 @@
     <Compile Include="SanPham.cs">
       <SubType>UserControl</SubType>
     </Compile>
+=======
+    <Compile Include="SanPham.cs" />
+>>>>>>> origin/BT_SanPham
     <Compile Include="SanPham.Designer.cs">
       <DependentUpon>SanPham.cs</DependentUpon>
     </Compile>
@@ -185,6 +189,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+<<<<<<< HEAD
     <EmbeddedResource Include="QLNhanvien.resx">
       <DependentUpon>QLNhanvien.cs</DependentUpon>
     </EmbeddedResource>
@@ -209,6 +214,11 @@
     <EmbeddedResource Include="XemHoadon.resx">
       <DependentUpon>XemHoadon.cs</DependentUpon>
     </EmbeddedResource>
+=======
+    <EmbeddedResource Include="SanPham.resx">
+      <DependentUpon>SanPham.cs</DependentUpon>
+    </EmbeddedResource>
+>>>>>>> origin/BT_SanPham
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
