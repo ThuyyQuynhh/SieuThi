@@ -68,21 +68,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dangNhap.cs" />
+    <Compile Include="AddKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddKhachHang.Designer.cs">
+      <DependentUpon>AddKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Banhang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Banhang.Designer.cs">
+      <DependentUpon>Banhang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="dangNhap.Designer.cs">
       <DependentUpon>dangNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\dataProvider.cs" />
-    <Compile Include="home.cs" />
+    <Compile Include="home.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="home.Designer.cs">
       <DependentUpon>home.cs</DependentUpon>
     </Compile>
-    <Compile Include="KhachHang.cs" />
-    <Compile Include="KhachHang.Designer.cs">
+    <Compile Include="KhachHang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KhachHang.designer.cs">
       <DependentUpon>KhachHang.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QLNhanvien.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QLNhanvien.designer.cs">
+      <DependentUpon>QLNhanvien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QLNhapHang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QLNhapHang.designer.cs">
+      <DependentUpon>QLNhapHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportHD.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportHD.Designer.cs">
+      <DependentUpon>ReportHD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SanPham.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SanPham.Designer.cs">
+      <DependentUpon>SanPham.cs</DependentUpon>
+    </Compile>
     <Compile Include="ShopQuanAoDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,35 +135,45 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShopQuanAoDataSet1.xsd</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <Compile Include="ThongkeLoinhuan.cs" />
-    <Compile Include="ThongkeLoinhuan.Designer.cs">
+    <Compile Include="ThongkeDoanhthu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ThongkeDoanhthu.designer.cs">
+      <DependentUpon>ThongkeDoanhthu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThongkeLoinhuan.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ThongkeLoinhuan.designer.cs">
       <DependentUpon>ThongkeLoinhuan.cs</DependentUpon>
     </Compile>
-=======
-=======
-    <Compile Include="TrangChu.cs" />
+    <Compile Include="TrangChu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="TrangChu.Designer.cs">
       <DependentUpon>TrangChu.cs</DependentUpon>
     </Compile>
->>>>>>> origin/TQ_TrangChu
+    <Compile Include="XemHoadon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XemHoadon.designer.cs">
+      <DependentUpon>XemHoadon.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddKhachHang.resx">
+      <DependentUpon>AddKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Banhang.resx">
+      <DependentUpon>Banhang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="dangNhap.resx">
       <DependentUpon>dangNhap.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
->>>>>>> origin/TQ_DangNhap
-=======
     <EmbeddedResource Include="home.resx">
       <DependentUpon>home.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
->>>>>>> origin/TQ_Home
-=======
     <EmbeddedResource Include="KhachHang.resx">
       <DependentUpon>KhachHang.cs</DependentUpon>
     </EmbeddedResource>
->>>>>>> origin/TQ_KhachHang
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -133,13 +185,29 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-<<<<<<< HEAD
+    <EmbeddedResource Include="QLNhanvien.resx">
+      <DependentUpon>QLNhanvien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QLNhapHang.resx">
+      <DependentUpon>QLNhapHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportHD.resx">
+      <DependentUpon>ReportHD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SanPham.resx">
+      <DependentUpon>SanPham.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThongkeDoanhthu.resx">
+      <DependentUpon>ThongkeDoanhthu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ThongkeLoinhuan.resx">
       <DependentUpon>ThongkeLoinhuan.cs</DependentUpon>
-=======
+    </EmbeddedResource>
     <EmbeddedResource Include="TrangChu.resx">
       <DependentUpon>TrangChu.cs</DependentUpon>
->>>>>>> origin/TQ_TrangChu
+    </EmbeddedResource>
+    <EmbeddedResource Include="XemHoadon.resx">
+      <DependentUpon>XemHoadon.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
