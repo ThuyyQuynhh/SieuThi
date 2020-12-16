@@ -139,6 +139,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShopQuanAoDataSet1.xsd</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="ThongkeDoanhthu.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -178,6 +179,12 @@
     <EmbeddedResource Include="KhachHang.resx">
       <DependentUpon>KhachHang.cs</DependentUpon>
     </EmbeddedResource>
+=======
+    <Compile Include="ThongkeDoanhthu.cs" />
+    <Compile Include="ThongkeDoanhthu.Designer.cs">
+      <DependentUpon>ThongkeDoanhthu.cs</DependentUpon>
+    </Compile>
+>>>>>>> origin/BT_ThongKeDoanhThu
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -189,6 +196,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <EmbeddedResource Include="QLNhanvien.resx">
       <DependentUpon>QLNhanvien.cs</DependentUpon>
@@ -219,6 +227,11 @@
       <DependentUpon>SanPham.cs</DependentUpon>
     </EmbeddedResource>
 >>>>>>> origin/BT_SanPham
+=======
+    <EmbeddedResource Include="ThongkeDoanhthu.resx">
+      <DependentUpon>ThongkeDoanhthu.cs</DependentUpon>
+    </EmbeddedResource>
+>>>>>>> origin/BT_ThongKeDoanhThu
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
