@@ -68,5 +68,156 @@ namespace QuanAo
             return true;
 
         }
-    }
+        // click vào button nhập kho
+        [Obsolete]
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // nếu nhập đủ thông tin thì cho phép cập nhật
+            if (ktra())
+            {
+
+
+                // nhập sản phẩm đã có trong kho
+                if (check == 1)
+                {
+
+                    try
+                    {
+                        byte[] b = imagetoarray(HinhAnhSP.Image);
+                        SqlConnection conect = new SqlConnection(dataProvider.connectionSTR);
+                        conect.Open();
+                        float gia = Convert.ToInt32(txbGiaNhap.Text) * (1 + float.Parse(txbLoinhuan.Text));
+                        string query = string.Format("update SanPham set NgayCapNhat = '{0}', GiaNhap = {1},Nhap = Nhap + {2}, Ton = Ton+{3},Hinh = @Hinh ,Gia ={4} where MaSP = '{5}' ", dtpNgayUpdate.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(txbGiaNhap.Text), Convert.ToInt32(numNhapthem.Value), Convert.ToInt32(numNhapthem.Value), gia, txbMaSP.Text);
+                        SqlCommand cmd = new SqlCommand(query, conect);
+                        cmd.Parameters.Add("@Hinh", b);
+                        cmd.ExecuteNonQuery();
+                        conect.Close();
+                        dtgvListSP.DataSource = dataProvider.GetDataTable("select * from SanPham");
+                    }
+                    catch (Exception ex)
+                    {
+                        float gia = Convert.ToInt32(txbGiaNhap.Text) * (1 + float.Parse(txbLoinhuan.Text));
+                        string query2 = string.Format("update SanPham set NgayCapNhat = '{0}', GiaNhap ={1},Nhap = Nhap + {2}, Ton = Ton+{3},Gia ={4}, Hinh = null where MaSP = '{5}' select * from SanPham", dtpNgayUpdate.Value.ToString("yyyy-MM-dd"), Convert.ToInt32(txbGiaNhap.Text), Convert.ToInt32(numNhapthem.Value), Convert.ToInt32(numNhapthem.Value), gia, txbMaSP.Text);
+                        dtgvListSP.DataSource = dataProvider.GetDataTable(query2);
+
+                    }
+
+                }
+                // nhập sản phẩm mới
+                else
+                {
+                    // kiểm tra mã sản phẩm đã tồn tại chưa
+                    DataTable checkma = dataProvider.GetDataTable("select * from SanPham where MaSP = N'" + txbMaSP.Text.ToString() + "'");
+                    if (checkma.Rows.Count > 0)
+                    {
+                        MessageBox.Show("Mã sản phẩm đã tồn tại");
+
+                    }
+                    else
+                    {
+                        // kiểm tra xem đã tồn tại danh mục chưa, nếu chưa thì tạo danh mục trong database
+                        DataTable data = dataProvider.GetDataTable("select * from DanhMuc where MaDM = '" + txbDanhmuc.Text.ToString() + "'");
+                        // chưa tồn tại danh mục
+                        if (data.Rows.Count == 0)
+                        {
+                            txtendanhmuc.Enabled = true;
+
+
+                            if (txtendanhmuc.Text != "")
+                            {
+
+                                string query = "insert into DanhMuc values('" + txbDanhmuc.Text + "',N'" + txtendanhmuc.Text + "')";
+                                dataProvider.exc(query);
+
+                                try
+                                {
+                                    float gia = Convert.ToInt32(txbGiaNhap.Text) * (1 + float.Parse(txbLoinhuan.Text));
+                                    byte[] b = imagetoarray(HinhAnhSP.Image);
+                                    SqlConnection conect = new SqlConnection(dataProvider.connectionSTR);
+                                    conect.Open();
+                                    string query2 = string.Format("insert into SanPham values ('{0}',N'{1}','{2}',N'{3}','{4}',N'{5}',N''{6}',{7},{8},{9},@Hinh,{10},0,{11}) ", txbMaSP.Text, txbTenSP.Text, txbDanhmuc.Text, txbThuonghieu.Text, dtpNgayUpdate.Value, txbMota.Text, txbDonvi.Text, Convert.ToInt32(txbGiaNhap.Text), txbLoinhuan.Text, gia, Convert.ToInt32(numNhapthem.Value), Convert.ToInt32(numNhapthem.Value));
+                                    SqlCommand cmd = new SqlCommand(query2, conect);
+                                    cmd.Parameters.Add("@Hinh", b);
+                                    cmd.ExecuteNonQuery();
+                                    conect.Close();
+                                    dtgvListSP.DataSource = dtgvListSP.DataSource = dataProvider.GetDataTable("select * from SanPham");
+                                }
+                                catch (Exception ex)
+                                {
+                                    float gia = Convert.ToInt32(txbGiaNhap.Text) * (1 + float.Parse(txbLoinhuan.Text));
+                                    string query2 = string.Format("insert into SanPham(MaSP,TenSP,MaDM ,ThuongHieu,NgayCapNhat,Mota,Donvi,GiaNhap,LoiNhuan,Gia,Nhap,Ban,Ton) values('{0}',N'{1}','{2}',N'{3}','{4}',N'{5}',N'{6}',{7},{8},{9},null,{10},0,{11}) select *from SanPham", txbMaSP.Text, txbTenSP.Text, txbDanhmuc.Text, txbThuonghieu.Text, dtpNgayUpdate.Value, txbMota.Text, txbDonvi.Text, Convert.ToInt32(txbGiaNhap.Text), txbLoinhuan.Text, gia, Convert.ToInt32(numNhapthem.Value), Convert.ToInt32(numNhapthem.Value));
+                                    dtgvListSP.DataSource = dataProvider.GetDataTable(query2);
+
+                                }
+                                txbMaSP.Text = "";
+                                txbTenSP.Text = "";
+                                txbDanhmuc.Text = "";
+                                txbThuonghieu.Text = "";
+                                txbMota.Text = "";
+                                txbDonvi.Text = "";
+                                txbGiaNhap.Text = "";
+                                txbLoinhuan.Text = "";
+                                numNhapthem.Value = 0;
+                                txtendanhmuc.Enabled = false;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Danh mục mới, yêu cầu nhập tên danh mục");
+                            }
+                        }
+                        // nếu đã tồn tại danh mục
+                        else
+                        {
+                            try
+                            {
+                                float gia = Convert.ToInt32(txbGiaNhap.Text) * (1 + float.Parse(txbLoinhuan.Text));
+                                byte[] b = imagetoarray(HinhAnhSP.Image);
+                                SqlConnection conect = new SqlConnection(dataProvider.connectionSTR);
+                                conect.Open();
+                                string query2 = string.Format("insert into SanPham values ('{0}',N'{1}','{2}',N'{3}','{4}',N'{5}',N'{6}',{7},{8},{9},@Hinh,{10},0,{11}) ", txbMaSP.Text, txbTenSP.Text, txbDanhmuc.Text, txbThuonghieu.Text, dtpNgayUpdate.Value, txbMota.Text, txbDonvi.Text, Convert.ToInt32(txbGiaNhap.Text), txbLoinhuan.Text, gia, Convert.ToInt32(numNhapthem.Value), Convert.ToInt32(numNhapthem.Value));
+                                SqlCommand cmd = new SqlCommand(query2, conect);
+                                cmd.Parameters.Add("@Hinh", b);
+                                cmd.ExecuteNonQuery();
+                                conect.Close();
+                                dtgvListSP.DataSource = dtgvListSP.DataSource = dataProvider.GetDataTable("select * from SanPham");
+                            }
+                            catch (Exception ex)
+                            {
+
+                                float gia = Convert.ToInt32(txbGiaNhap.Text) * (1 + float.Parse(txbLoinhuan.Text));
+                                string query2 = string.Format("insert into SanPham(MaSP,TenSP,MaDM ,ThuongHieu,NgayCapNhat,Mota,Donvi,GiaNhap,LoiNhuan,Gia,Nhap,Ban,Ton) values('{0}',N'{1}','{2}',N'{3}','{4}',N'{5}',N'{6}',{7},{8},{9},{10},0,{11}) select *from SanPham", txbMaSP.Text, txbTenSP.Text, txbDanhmuc.Text, txbThuonghieu.Text, dtpNgayUpdate.Value, txbMota.Text, txbDonvi.Text, Convert.ToInt32(txbGiaNhap.Text), txbLoinhuan.Text, gia, Convert.ToInt32(numNhapthem.Value), Convert.ToInt32(numNhapthem.Value));
+                                dtgvListSP.DataSource = dataProvider.GetDataTable(query2);
+
+                            }
+                            txbMaSP.Text = "";
+                            txbTenSP.Text = "";
+                            txbDanhmuc.Text = "";
+                            txbThuonghieu.Text = "";
+                            txbMota.Text = "";
+                            txbDonvi.Text = "";
+                            txbGiaNhap.Text = "";
+                            txbLoinhuan.Text = "";
+                            numNhapthem.Value = 0;
+                            txtendanhmuc.Enabled = false;
+                        }
+
+
+
+
+                    }
+
+
+
+
+
+                }
+
+
+            }
+            // chưa nhập đủ thì đưa ra thông báo
+            else
+            {
+                MessageBox.Show("Nhập đủ thông tin sản phẩm trước khi nhập kho");
+            }
+        }
 }
