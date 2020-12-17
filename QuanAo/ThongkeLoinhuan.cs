@@ -25,7 +25,7 @@ namespace QuanAo
 
         }
 
-        private void raBtn_Click(object sender, EventArgs e)
+         private void raBtn_Click(object sender, EventArgs e)
         {
             dtpChonngay.Enabled = true;
             chon = 0;
