@@ -220,4 +220,84 @@ namespace QuanAo
                 MessageBox.Show("Nhập đủ thông tin sản phẩm trước khi nhập kho");
             }
         }
+        // sự kiện load form lên
+        private void QLNhapHang_Load(object sender, EventArgs e)
+        {
+            string query = string.Format("select *from SanPham ");
+
+            dtgvListSP.DataSource = dataProvider.GetDataTable(query);
+            ThongTinSP.Enabled = false;
+        }
+        // click vào button tìm kiếm sản phẩm
+        private void groupControl1_CustomButtonClick(object sender, DevExpress.XtraBars.Docking2010.BaseButtonEventArgs e)
+        {
+            string query = string.Format("select *from SanPham SP where SP.TenSP like N'%{0}%'", txbNameSP.Text);
+
+            dtgvListSP.DataSource = dataProvider.GetDataTable(query);
+        }
+        // click button thêm mới
+        private void groupControl2_CustomButtonClick(object sender, DevExpress.XtraBars.Docking2010.BaseButtonEventArgs e)
+        {
+            txbMaSP.Text = "";
+            txbTenSP.Text = "";
+            txbDanhmuc.Text = "";
+            txbThuonghieu.Text = "";
+            txbMota.Text = "";
+            txbDonvi.Text = "";
+            txbGiaNhap.Text = "";
+            txbLoinhuan.Text = "";
+            numNhapthem.Value = 0;
+            HinhAnhSP.Image = null;
+            ThongTinSP.Enabled = true;
+            txbMaSP.Enabled = true;
+            txbDanhmuc.Enabled = true;
+            check = 0;
+
+
+
+        }
+        // chuyển image thành byte[]
+        byte[] imagetoarray(Image img)
+        {
+            if (img != null)
+            {
+                MemoryStream m = new MemoryStream();
+                img.Save(m, img.RawFormat);
+                return m.ToArray();
+            }
+            else return null;
+        }
+        // chuyển byte[] về image
+        Image byteToImage(byte[] b)
+        {
+            MemoryStream m = new MemoryStream(b);
+            return Image.FromStream(m);
+        }
+        // sự kiện click vào button chọn hình ảnh
+        private void dockPanel2_CustomButtonClick(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                HinhAnhSP.Image = Image.FromFile(open.FileName);
+            }
+        }
+        // click vào button xóa ảnh
+        private void groupControl3_CustomButtonClick(object sender, DevExpress.XtraBars.Docking2010.BaseButtonEventArgs e)
+        {
+            HinhAnhSP.Image = null;
+        }
+        // chỉ cho nhập số vào ô giá
+        private void txbGiaNhap_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void txbLoinhuan_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(e.KeyChar == 46) && !Char.IsDigit(e.KeyChar) && !Char.IsControl(e.KeyChar))
+                e.Handled = true;
+        }
+    }
 }
